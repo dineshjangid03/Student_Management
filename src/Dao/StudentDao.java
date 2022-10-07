@@ -9,9 +9,8 @@ public interface StudentDao {
 	
 	public List<Student> getAllStudent();
 	
-	
 	public Student getStudentById(int id) ;
-
 	
+	public String deleteStudentById(int id);
 
 }

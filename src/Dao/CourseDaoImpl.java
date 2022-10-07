@@ -63,6 +63,31 @@ public class CourseDaoImpl implements CourseDao {
 		
 		return null;
 	}
+
+
+	@Override
+	public String deleteCourseById(int id) {
+		String message="not deleted";
+		
+		try(Connection con=DButil.getConnection()){
+			
+			PreparedStatement ss=con.prepareStatement("delete from course where id=?");
+			
+			ss.setInt(1, id);
+			
+			int x=ss.executeUpdate();
+			
+			if(x>0) {
+				message="course deleted";
+			}
+			
+			
+		}catch(Exception e) {
+			message=e.getMessage();
+		}
+
+		return message;
+	}
 }
 		
 	

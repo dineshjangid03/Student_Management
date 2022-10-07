@@ -100,6 +100,30 @@ public class StudentDaoImpl implements StudentDao {
 		return student;
 		
 	}
+
+
+
+	@Override
+	public String deleteStudentById(int id) {
+		String Message= "Not Deleted";
+		try(Connection con=DButil.getConnection()){
+			PreparedStatement ps=con.prepareStatement("Delete from student where id=?");
+			ps.setInt(1,id);
+			
+			int x=ps.executeUpdate();
+			
+			if(x>0) {
+				Message="course deleted";
+			}
+			
+			
+		} catch (Exception e) {
+			Message=e.getMessage();
+			
+		}
+		
+		return Message;
+	}
 	
 
 }
