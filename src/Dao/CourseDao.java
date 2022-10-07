@@ -11,6 +11,8 @@ public interface CourseDao {
 	public List<Course> getAllCourse();
 	
 	public Course getCourseByID(int id);
+	
+	public String deleteCourseById(int id);
 
 
 }
