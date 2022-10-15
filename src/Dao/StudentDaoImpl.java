@@ -124,6 +124,36 @@ public class StudentDaoImpl implements StudentDao {
 		
 		return Message;
 	}
+
+
+
+	@Override
+	public List<Student> studentByCourse(int id) {
+		ArrayList<Student> list=new ArrayList<>();
+		
+
+		try(Connection con=DButil.getConnection()){
+			PreparedStatement ps=con.prepareStatement("select s.id, s.name, s.mobile, s.address, s.age from student s inner join course c inner join student_c sc on s.id=sc.sid and c.id=sc.cid and c.id=?");
+			
+			ps.setInt(1, id);
+			
+			ResultSet rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				int id1=rs.getInt("id") ;
+				String name=rs.getString("name");
+				String mobile=rs.getString("mobile");
+				String address=rs.getString("address");
+				int age=rs.getInt("age");
+				Student student=new Student(id1,name,mobile,address,age) ;
+				list.add(student);
+			}
+			
+		}catch(Exception e) {}
+		
+		
+		return list;
+	}
 	
 
 }

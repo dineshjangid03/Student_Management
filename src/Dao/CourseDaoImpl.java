@@ -3,6 +3,7 @@ package Dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,8 +61,27 @@ public class CourseDaoImpl implements CourseDao {
 
 	@Override
 	public Course getCourseByID(int id) {
+		Course c =null ; 
+		try(Connection con= DButil.getConnection()){
+			PreparedStatement ss=con.prepareStatement("select * from course where id=?");
+			
+			ss.setInt(1, id);
+			
+			ResultSet rs= ss.executeQuery();
+			
+			if(rs.next()) {
+				String name=rs.getString("name");
+				int fee=rs.getInt("fees");
+				String dur=rs.getString("duration");
+				
+				c=new Course(id, name, fee, dur);
+			}
+			
+		}catch(SQLException e) {
+			
+		}
 		
-		return null;
+		return c;
 	}
 
 
